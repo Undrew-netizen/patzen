@@ -1,102 +1,185 @@
-import { FaArrowRight, FaStar, FaTruck, FaShieldAlt, FaWrench, FaHeadphones } from "react-icons/fa"
+import {
+	FaArrowRight,
+	FaBolt,
+	FaCheckCircle,
+	FaFireAlt,
+	FaHeadphones,
+	FaShieldAlt,
+	FaStar,
+	FaTint,
+	FaTools,
+	FaTruck,
+	FaWrench,
+} from "react-icons/fa";
 import home from "../assets/home.jpg";
 import home2 from "../assets/home2.jpg";
 
+const trustBadges = [
+	{ icon: FaTruck, title: "Fast dispatch", detail: "Same-day delivery" },
+	{ icon: FaShieldAlt, title: "5-year warranty", detail: "On selected lines" },
+	{ icon: FaWrench, title: "Pro-tested", detail: "By certified plumbers" },
+	{ icon: FaHeadphones, title: "Expert support", detail: "Real humans, 7 days" },
+];
+
+const categories = [
+	{ icon: FaTint, title: "Pipes & fittings", detail: "Copper, PVC, PEX, valves", items: "2,400+ items" },
+	{ icon: FaFireAlt, title: "Heating", detail: "Radiators, boilers, controls", items: "860+ items" },
+	{ icon: FaTools, title: "Tools & sealants", detail: "Cutters, tapes, compounds", items: "1,100+ items" },
+	{ icon: FaBolt, title: "Pumps & drainage", detail: "Boosters, sumps, traps", items: "640+ items" },
+];
+
+const bestSellers = [
+	{ name: "15mm Copper Elbow Pack", tag: "Bulk value", price: "$18.90", rating: "4.9" },
+	{ name: "High-flow Shower Pump", tag: "Contractor pick", price: "$149.00", rating: "4.8" },
+	{ name: "PVC Waste Pipe Kit", tag: "Ready to fit", price: "$34.50", rating: "4.7" },
+];
+
 export default function Home() {
 	return (
-		<section className="">
-			<div className="flex flex-row gap-12 p-12 bg-blue-900">
-
-
-				<div className="flex flex-col gap-4  ">
-					<span className="text-5xl font-bold mt-16 font-['Inter']">
-						<p className="text-white">Built to flow.</p>
-					<p className="text-green-500">Engineered to last.</p>
-					</span>
-					<span>
-						<p className="text-gray-400 text-lg">
-							From copper fittings to pumps <br /> everything pros and DYIers need, delivered fast.
+		<section className="bg-slate-50 text-slate-950">
+			<div className="bg-blue-900">
+				<div className="mx-auto grid max-w-7xl items-center gap-10 px-6 py-12 lg:grid-cols-[1fr_0.95fr] lg:px-10 lg:py-16">
+					<div className="max-w-2xl">
+						<p className="mb-4 text-sm font-bold uppercase tracking-wide text-green-400">Trade-grade plumbing supply</p>
+						<h1 className="font-['Inter'] text-4xl font-bold leading-tight text-white sm:text-5xl lg:text-6xl">
+							Built to flow. <span className="block text-green-400">Engineered to last.</span>
+						</h1>
+						<p className="mt-5 max-w-xl text-lg leading-8 text-blue-100">
+							From copper fittings to pressure pumps, Patzen keeps pros and DIYers stocked with dependable parts, sharp pricing, and fast delivery.
 						</p>
-					</span>
-					<span className="flex flex-row gap-4">
-						<span  className="bg-green-500 text-white font-bold h-10 w-40  py-2 px-4 rounded-lg justify-center flex flex-row gap-2">Shop now <FaArrowRight className="mt-1" /></span>
-						<span className="text-white bg-transparent border border-white py-2 px-4 rounded-lg">Browse categories</span>
-					</span>
-					<span className="flex flex-row gap-12 mt-8">	
-						<span>
-						<p className="text-green-500 text-2xl font-bold">10K+</p>
-						<p className="text-gray-400">Skus In Stock</p>
-						</span>
-					<span>
-						<p className="text-green-500 text-2xl font-bold">25y</p>
-						<p className="text-gray-400">Trusted Experts</p>
-					</span>
-					<span>
-					      <p className="text-green-500 text-2xl font-bold">4.9 <FaStar className="inline text-green-500 mb-2" /></p>
-					      <p className="text-gray-400">Customer Rating</p>
-					</span>
-					</span>
+
+						<div className="mt-8 flex flex-col gap-3 sm:flex-row">
+							<a className="inline-flex h-12 items-center justify-center gap-2 rounded-md bg-green-500 px-6 font-bold text-white shadow-lg shadow-green-950/20 transition hover:bg-green-400" href="/shop">
+								Shop now <FaArrowRight />
+							</a>
+							<a className="inline-flex h-12 items-center justify-center rounded-md border border-blue-200 px-6 font-bold text-white transition hover:bg-white hover:text-blue-950" href="#categories">
+								Browse categories
+							</a>
+						</div>
+
+						<div className="mt-10 grid max-w-xl grid-cols-3 gap-4 border-t border-blue-800 pt-8 text-white">
+							<div>
+								<p className="text-3xl font-bold text-green-400">10K+</p>
+								<p className="mt-1 text-sm text-blue-200">SKUs in stock</p>
+							</div>
+							<div>
+								<p className="text-3xl font-bold text-green-400">25y</p>
+								<p className="mt-1 text-sm text-blue-200">Trusted experts</p>
+							</div>
+							<div>
+								<p className="text-3xl font-bold text-green-400">
+									4.9 <FaStar className="mb-1 inline text-xl" />
+								</p>
+								<p className="mt-1 text-sm text-blue-200">Customer rating</p>
+							</div>
+						</div>
+					</div>
+
+					<div className="relative min-h-[360px] overflow-hidden rounded-lg bg-blue-900 shadow-2xl shadow-blue-950/40 lg:min-h-[500px]">
+						<img src={home} alt="Plumbing parts and pipe fittings" className="absolute inset-0 h-full w-full object-cover" />
+						<div className="absolute inset-x-4 bottom-4 rounded-md bg-white/95 p-4 shadow-xl backdrop-blur sm:inset-x-6 sm:bottom-6">
+							<div className="flex items-center justify-between gap-4">
+								<div>
+									<p className="text-sm font-bold uppercase text-green-600">Ready for dispatch</p>
+									<p className="mt-1 text-lg font-bold text-slate-950">1,280 contractor essentials ship today</p>
+								</div>
+								<FaCheckCircle className="shrink-0 text-3xl text-green-500" />
+							</div>
+						</div>
+					</div>
 				</div>
-				<div className=" mt-16 flex flex-row gap-4 items-center ml-auto ">
-					<img src={home}  className="w-[600px] h-[450px] object-cover rounded-lg mt-4" />
-				</div>
-			</div>
-			<div className="flex flex-row gap-16   bg-blue-100 text-center justify-flex-start border-b border-blue-300 py-2">
-				<span className="flex flex-row gap-4 items-center">
-					<span className="text-blue-500 text-2xl bg-blue-200 p-2 rounded-lg"><FaTruck /></span>
-					<span>	
-					<p>Fast dispatch</p>
-					<p>Same-day delivery</p>
-					</span>
-				</span>
-				<span className="flex flex-row gap-4 items-center">
-					<span className="text-blue-500 text-2xl bg-blue-200 p-2 rounded-lg"><FaShieldAlt /></span>
-					<span>
-						<p>5-Year warranty</p>
-					<p>On selected lines </p>
-					</span>
-				</span>
-				<span className="flex flex-row gap-4 items-center">
-					<span className="text-blue-500 text-2xl bg-blue-200 p-2 rounded-lg"><FaWrench /></span>
-					<span>
-						<p>Pro-tested</p>
-						<p>By certified Plumbers</p>
-					</span>
-				</span>
-				<span className="flex flex-row gap-4 items-center">
-					<span className="text-blue-500 text-2xl bg-blue-200 p-2 rounded-lg"><FaHeadphones /></span>
-					<span>	
-						<p>Expert support</p>
-					<p>Real humans, 7 days</p></span>
-				</span>
 			</div>
 
-			<div>	
-				<span>
-					<p className="text-green-500 font-bold">SHOP BY CATEGORY</p>
-					<p className="text-black text-4xl font-bold font-['Inter']">Find your fit</p>
-				</span>
-			</div>
-			<div>
-				<span>
-					<p className="text-green-500 font-bold">FEATURED</p>
-					<p className="text-black text-4xl font-bold font-['Inter']">Best sellers</p>
-				</span>
+			<div className="border-b border-blue-200 bg-blue-50">
+				<div className="mx-auto grid max-w-7xl gap-4 px-6 py-5 sm:grid-cols-2 lg:grid-cols-4 lg:px-10">
+					{trustBadges.map(({ icon: Icon, title, detail }) => (
+						<div key={title} className="flex items-center gap-4">
+							<span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-md bg-blue-100 text-xl text-blue-700">
+								<Icon />
+							</span>
+							<span>
+								<p className="font-bold text-slate-950">{title}</p>
+								<p className="text-sm text-slate-600">{detail}</p>
+							</span>
+						</div>
+					))}
+				</div>
 			</div>
 
-			<div className="flex flex-row gap-12  bg-blue-950 p-12 rounded-lg m-12 "
-			style={{backgroundImage: `url(${home2})`, backgroundSize: 'cover', backgroundPosition: 'center'}}
-			>
-				<div className="flex flex-col gap-4 bg-blue-900 bg-opacity-40 p-6 rounded-lg w-full">
-					<span >
-					<p className="text-green-500 font-bold">PRO ACCOUNT</p>
-					<p className="text-white text-2xl font-bold font-['Inter']">Trade discounts up to 30% off</p>
-					<p className="text-gray-400">Verified plumbers and contractors get exclusive pricing, <br /> dedicated support, and Net-30 terms.</p>
-				</span>
-				<span className="text-white bg-green-500 border border-white py-2 px-4 rounded-xl w-60 h-10 flex flex-row gap-2 items-center justify-center">Apply for Trade pricing <FaArrowRight /></span>
-			
+			<div id="categories" className="mx-auto max-w-7xl px-6 py-14 lg:px-10">
+				<div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
+					<div>
+						<p className="text-sm font-bold uppercase text-green-600">Shop by category</p>
+						<h2 className="mt-2 font-['Inter'] text-3xl font-bold text-slate-950 sm:text-4xl">Find your fit</h2>
+					</div>
+					<a href="/shop" className="inline-flex items-center gap-2 font-bold text-blue-800 hover:text-blue-950">
+						View all categories <FaArrowRight />
+					</a>
 				</div>
+
+				<div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+					{categories.map(({ icon: Icon, title, detail, items }) => (
+						<a key={title} href="/shop" className="group rounded-lg border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-1 hover:border-blue-300 hover:shadow-lg">
+							<span className="flex h-12 w-12 items-center justify-center rounded-md bg-green-50 text-2xl text-green-600">
+								<Icon />
+							</span>
+							<p className="mt-5 text-lg font-bold text-slate-950">{title}</p>
+							<p className="mt-2 text-sm text-slate-600">{detail}</p>
+							<p className="mt-5 text-sm font-bold text-blue-800">{items}</p>
+						</a>
+					))}
 				</div>
+			</div>
+
+			<div className="bg-white">
+				<div className="mx-auto max-w-7xl px-6 py-14 lg:px-10">
+					<div>
+						<p className="text-sm font-bold uppercase text-green-600">Featured</p>
+						<h2 className="mt-2 font-['Inter'] text-3xl font-bold text-slate-950 sm:text-4xl">Best sellers</h2>
+					</div>
+
+					<div className="mt-8 grid gap-5 md:grid-cols-3">
+						{bestSellers.map((product) => (
+							<div key={product.name} className="rounded-lg border border-slate-200 bg-slate-50 p-5">
+								<div className="flex h-40 items-center justify-center rounded-md bg-blue-100 text-5xl text-blue-800">
+									<FaWrench />
+								</div>
+								<div className="mt-5 flex items-center justify-between gap-4">
+									<span className="rounded-full bg-green-100 px-3 py-1 text-xs font-bold uppercase text-green-700">{product.tag}</span>
+									<span className="flex items-center gap-1 text-sm font-bold text-slate-700">
+										<FaStar className="text-green-500" /> {product.rating}
+									</span>
+								</div>
+								<p className="mt-4 min-h-14 text-lg font-bold text-slate-950">{product.name}</p>
+								<div className="mt-5 flex items-center justify-between gap-4">
+									<p className="text-2xl font-bold text-blue-950">{product.price}</p>
+									<a href="/shop" className="inline-flex h-10 items-center justify-center rounded-md bg-blue-950 px-4 text-sm font-bold text-white hover:bg-blue-800">
+										Add to cart
+									</a>
+								</div>
+							</div>
+						))}
+					</div>
+				</div>
+			</div>
+
+			<div className="mx-auto max-w-7xl px-6 py-14 lg:px-10">
+				<div
+					className="overflow-hidden rounded-lg bg-blue-950 bg-cover bg-center"
+					style={{
+						backgroundImage: `linear-gradient(90deg, rgba(23, 37, 84, 0.95), rgba(23, 37, 84, 0.68)), url(${home2})`,
+					}}
+				>
+					<div className="max-w-2xl px-6 py-12 sm:px-10 lg:py-16">
+						<p className="text-sm font-bold uppercase text-green-400">Pro account</p>
+						<h2 className="mt-3 font-['Inter'] text-3xl font-bold text-white sm:text-4xl">Trade discounts up to 30% off</h2>
+						<p className="mt-4 text-lg leading-8 text-blue-100">Verified plumbers and contractors get exclusive pricing, dedicated support, and Net-30 terms.</p>
+						<a href="/support" className="mt-8 inline-flex h-12 items-center justify-center gap-2 rounded-md bg-green-500 px-6 font-bold text-white hover:bg-green-400">
+							Apply for trade pricing <FaArrowRight />
+						</a>
+					</div>
+				</div>
+			</div>
 		</section>
-	)
+	);
 }

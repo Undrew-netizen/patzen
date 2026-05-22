@@ -1,0 +1,1 @@
+export default BASE_URL="// 192.168.137.1:8000/api/v1/";
