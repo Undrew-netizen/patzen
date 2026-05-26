@@ -1,12 +1,47 @@
 import { FaBoxOpen, FaCheckCircle, FaCreditCard, FaMapMarkerAlt, FaUser } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 const orders = [
-	{ id: "PZ-1048", status: "Out for delivery", total: "$92.30" },
-	{ id: "PZ-1039", status: "Delivered", total: "$214.10" },
-	{ id: "PZ-1026", status: "Delivered", total: "$48.80" },
+	{ id: "PZ-1048", status: "Out for delivery", total: "KSh 92.30" },
+	{ id: "PZ-1039", status: "Delivered", total: "KSh 214.10" },
+	{ id: "PZ-1026", status: "Delivered", total: "KSh 48.80" },
 ];
 
 export default function Profile() {
+	const navigate = useNavigate();
+	const { user, isLoading, logout } = useAuth();
+
+	if (isLoading) {
+		return (
+			<section className="bg-slate-50 px-6 py-12 text-slate-950 lg:px-10">
+				<div className="mx-auto max-w-7xl">
+					<div className="h-56 animate-pulse rounded-lg border border-slate-200 bg-white" />
+				</div>
+			</section>
+		);
+	}
+
+	if (!user) {
+		return (
+			<section className="bg-slate-50 px-6 py-12 text-slate-950 lg:px-10">
+				<div className="mx-auto max-w-3xl rounded-lg border border-slate-200 bg-white p-8 text-center shadow-sm">
+					<p className="text-sm font-bold uppercase text-green-600">Account</p>
+					<h1 className="mt-2 text-3xl font-bold">Sign in to view your profile</h1>
+					<p className="mt-3 text-slate-600">Your order history and delivery details are saved after you log in.</p>
+					<div className="mt-6 flex flex-col justify-center gap-3 sm:flex-row">
+						<a href="/login" className="inline-flex h-12 items-center justify-center rounded-md bg-green-500 px-6 font-bold text-white hover:bg-green-400">
+							Sign in
+						</a>
+						<a href="/signup" className="inline-flex h-12 items-center justify-center rounded-md border border-slate-200 px-6 font-bold text-blue-900 hover:border-blue-300">
+							Create account
+						</a>
+					</div>
+				</div>
+			</section>
+		);
+	}
+
 	return (
 		<section className="bg-slate-50 px-6 py-12 text-slate-950 lg:px-10">
 			<div className="mx-auto max-w-7xl">
@@ -21,7 +56,7 @@ export default function Profile() {
 								<FaUser />
 							</span>
 							<div>
-								<h2 className="text-xl font-bold">Collins Mwangi</h2>
+								<h2 className="text-xl font-bold">{user.name}</h2>
 								<p className="text-sm text-slate-600">Trade account pending</p>
 							</div>
 						</div>
@@ -30,6 +65,15 @@ export default function Profile() {
 							<p className="flex items-center gap-3 rounded-md bg-slate-50 p-3 text-slate-700"><FaMapMarkerAlt /> Nairobi delivery address</p>
 							<p className="flex items-center gap-3 rounded-md bg-slate-50 p-3 text-slate-700"><FaCreditCard /> Visa ending 2048</p>
 						</div>
+						<button
+							className="mt-6 h-11 w-full rounded-md border border-slate-200 font-bold text-slate-700 hover:border-blue-300"
+							onClick={async () => {
+								await logout();
+								navigate("/login");
+							}}
+						>
+							Sign out
+						</button>
 					</aside>
 
 					<div className="grid gap-6">
@@ -39,7 +83,7 @@ export default function Profile() {
 								<p className="mt-1 text-sm text-slate-600">Orders this year</p>
 							</div>
 							<div className="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
-								<p className="text-3xl font-bold text-blue-950">$420</p>
+								<p className="text-3xl font-bold text-blue-950">KSh 420</p>
 								<p className="mt-1 text-sm text-slate-600">Trade savings</p>
 							</div>
 							<div className="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">

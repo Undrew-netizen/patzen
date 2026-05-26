@@ -1,4 +1,5 @@
 import { FaHeart, FaSearch, FaShoppingCart, FaTint, FaUser } from "react-icons/fa";
+import { useAuth } from "../context/AuthContext";
 import { useCart } from "../context/CartContext";
 
 const links = [
@@ -10,6 +11,7 @@ const links = [
 
 function NavBar() {
 	const { itemCount } = useCart();
+	const { user } = useAuth();
 
 	return (
 		<header className="bg-blue-950 px-4 py-3 text-white lg:px-10">
@@ -41,7 +43,7 @@ function NavBar() {
 						<a className="hover:text-green-400" href="/wishlist" aria-label="Wishlist">
 							<FaHeart />
 						</a>
-						<a className="hover:text-green-400" href="/profile" aria-label="Profile">
+						<a className="hover:text-green-400" href={user ? "/profile" : "/login"} aria-label={user ? "Profile" : "Login"}>
 							<FaUser />
 						</a>
 						<a className="relative hover:text-green-400" href="/cart" aria-label="Cart">

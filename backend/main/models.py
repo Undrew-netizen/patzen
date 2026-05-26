@@ -6,7 +6,7 @@ class Product(models.Model):
     category = models.CharField(max_length=80)
     price = models.DecimalField(max_digits=10, decimal_places=2)
     description = models.TextField()
-    image_url = models.URLField(blank=True)
+    image = models.ImageField(upload_to='products/', blank=True)
     rating = models.DecimalField(max_digits=2, decimal_places=1, null=True, blank=True)
     badge = models.CharField(max_length=80, blank=True)
     stock = models.PositiveIntegerField(default=0)
@@ -27,7 +27,7 @@ class Product(models.Model):
             "category": self.category,
             "price": float(self.price),
             "description": self.description,
-            "imageUrl": self.image_url,
+            "imageUrl": self.image.url if self.image else None,
             "rating": float(self.rating) if self.rating is not None else None,
             "badge": self.badge,
             "stock": self.stock,

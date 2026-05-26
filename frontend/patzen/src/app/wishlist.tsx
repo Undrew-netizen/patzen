@@ -1,9 +1,9 @@
 import { FaArrowRight, FaHeart, FaStar, FaWrench } from "react-icons/fa";
 
 const savedItems = [
-	{ name: "High-flow Shower Pump", price: "$149.00", note: "Price dropped 8%", rating: "4.8" },
-	{ name: "Quarter-turn Ball Valve", price: "$12.80", note: "Back in stock", rating: "4.8" },
-	{ name: "Pipe Cutter Pro 42mm", price: "$42.00", note: "Saved for tool kit", rating: "4.6" },
+	{ name: "High-flow Shower Pump", price: "KSh 149.00", note: "Price dropped 8%", rating: "4.8" },
+	{ name: "Quarter-turn Ball Valve", price: "KSh 12.80", note: "Back in stock", rating: "4.8" },
+	{ name: "Pipe Cutter Pro 42mm", price: "KSh 42.00", note: "Saved for tool kit", rating: "4.6" },
 ];
 
 export default function Wishlist() {

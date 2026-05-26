@@ -73,7 +73,7 @@ export default function Shop() {
 			<div className="mx-auto max-w-7xl px-6 py-10 lg:px-10">
 				{fromFallback ? (
 					<div className="mb-6 rounded-md border border-amber-200 bg-amber-50 p-4 text-sm text-amber-900">
-						Backend products were not available at <span className="font-bold">/api/products</span>, so sample products are showing for now.
+						Backend products were not available at <span className="font-bold">/api/products/</span>. Start the backend or add products in the admin.
 					</div>
 				) : null}
 
@@ -82,7 +82,7 @@ export default function Shop() {
 						{filters.map((filter) => (
 							<button
 								key={filter}
-								className={`rounded-md px-4 py-2 text-sm font-bold ${activeFilter === filter ? "bg-blue-950 text-white" : "border border-slate-200 bg-white text-slate-700 hover:border-blue-300"}`}
+								className={`rounded-md px-4 py-2 text-sm font-bold ${activeFilter === filter ? "bg-blue-900 text-white" : "border border-slate-200 bg-white text-slate-700 hover:border-blue-300"}`}
 								onClick={() => setActiveFilter(filter)}
 							>
 								{filter}

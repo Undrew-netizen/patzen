@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import {
 	FaArrowRight,
 	FaBolt,
@@ -13,6 +14,8 @@ import {
 } from "react-icons/fa";
 import home from "../assets/home.jpg";
 import home2 from "../assets/home2.jpg";
+import { fetchProducts, formatPrice } from "../lib/products";
+import type { Product } from "../lib/products";
 
 const trustBadges = [
 	{ icon: FaTruck, title: "Fast dispatch", detail: "Same-day delivery" },
@@ -28,17 +31,34 @@ const categories = [
 	{ icon: FaBolt, title: "Pumps & drainage", detail: "Boosters, sumps, traps", items: "640+ items" },
 ];
 
-const bestSellers = [
-	{ name: "15mm Copper Elbow Pack", tag: "Bulk value", price: "$18.90", rating: "4.9" },
-	{ name: "High-flow Shower Pump", tag: "Contractor pick", price: "$149.00", rating: "4.8" },
-	{ name: "PVC Waste Pipe Kit", tag: "Ready to fit", price: "$34.50", rating: "4.7" },
-];
-
 export default function Home() {
+	const [featuredProducts, setFeaturedProducts] = useState<Product[]>([]);
+	const [isLoadingProducts, setIsLoadingProducts] = useState(true);
+
+	useEffect(() => {
+		let isMounted = true;
+
+		fetchProducts()
+			.then((result) => {
+				if (isMounted) {
+					setFeaturedProducts(result.products.slice(0, 3));
+				}
+			})
+			.finally(() => {
+				if (isMounted) {
+					setIsLoadingProducts(false);
+				}
+			});
+
+		return () => {
+			isMounted = false;
+		};
+	}, []);
+
 	return (
 		<section className="bg-slate-50 text-slate-950">
 			<div className="bg-blue-900">
-				<div className="mx-auto grid max-w-7xl items-center gap-10 px-6 py-12 lg:grid-cols-[1fr_0.95fr] lg:px-10 lg:py-16">
+				<div className="mx-auto grid max-w-7xl  gap-10 px-6 py-12 lg:grid-cols-[1fr_0.95fr] lg:px-10 lg:py-16">
 					<div className="max-w-2xl">
 						<p className="mb-4 text-sm font-bold uppercase tracking-wide text-green-400">Trade-grade plumbing supply</p>
 						<h1 className="font-['Inter'] text-4xl font-bold leading-tight text-white sm:text-5xl lg:text-6xl">
@@ -135,31 +155,45 @@ export default function Home() {
 				<div className="mx-auto max-w-7xl px-6 py-14 lg:px-10">
 					<div>
 						<p className="text-sm font-bold uppercase text-green-600">Featured</p>
-						<h2 className="mt-2 font-['Inter'] text-3xl font-bold text-slate-950 sm:text-4xl">Best sellers</h2>
+						<h2 className="mt-2 font-['Inter'] text-3xl font-bold text-slate-950 sm:text-4xl">Backend products</h2>
 					</div>
 
-					<div className="mt-8 grid gap-5 md:grid-cols-3">
-						{bestSellers.map((product) => (
-							<div key={product.name} className="rounded-lg border border-slate-200 bg-slate-50 p-5">
-								<div className="flex h-40 items-center justify-center rounded-md bg-blue-100 text-5xl text-blue-800">
-									<FaWrench />
+					{isLoadingProducts ? (
+						<p className="mt-8 text-slate-600">Loading products...</p>
+					) : featuredProducts.length > 0 ? (
+						<div className="mt-8 grid gap-5 md:grid-cols-3">
+							{featuredProducts.map((product) => (
+								<div key={product.id} className="rounded-lg border border-slate-200 bg-slate-50 p-5">
+									{product.imageUrl ? (
+										<div className="h-40 overflow-hidden rounded-md bg-blue-100">
+											<img src={product.imageUrl} alt={product.name} className="h-full w-full object-cover" />
+										</div>
+									) : null}
+									<div className={product.imageUrl ? "mt-5 flex items-center justify-between gap-4" : "flex items-center justify-between gap-4"}>
+										<span className="rounded-full bg-green-100 px-3 py-1 text-xs font-bold uppercase text-green-700">{product.badge || product.category}</span>
+										{product.rating ? (
+											<span className="flex items-center gap-1 text-sm font-bold text-slate-700">
+												<FaStar className="text-green-500" /> {product.rating.toFixed(1)}
+											</span>
+										) : null}
+									</div>
+									<p className="mt-4 min-h-14 text-lg font-bold text-slate-950">{product.name}</p>
+									<p className="mt-2 min-h-12 text-sm leading-6 text-slate-600">{product.description}</p>
+									<div className="mt-5 flex items-center justify-between gap-4">
+										<p className="text-2xl font-bold text-blue-950">{formatPrice(product.price)}</p>
+										<a href="/shop" className="inline-flex h-10 items-center justify-center rounded-md bg-blue-950 px-4 text-sm font-bold text-white hover:bg-blue-800">
+											View
+										</a>
+									</div>
 								</div>
-								<div className="mt-5 flex items-center justify-between gap-4">
-									<span className="rounded-full bg-green-100 px-3 py-1 text-xs font-bold uppercase text-green-700">{product.tag}</span>
-									<span className="flex items-center gap-1 text-sm font-bold text-slate-700">
-										<FaStar className="text-green-500" /> {product.rating}
-									</span>
-								</div>
-								<p className="mt-4 min-h-14 text-lg font-bold text-slate-950">{product.name}</p>
-								<div className="mt-5 flex items-center justify-between gap-4">
-									<p className="text-2xl font-bold text-blue-950">{product.price}</p>
-									<a href="/shop" className="inline-flex h-10 items-center justify-center rounded-md bg-blue-950 px-4 text-sm font-bold text-white hover:bg-blue-800">
-										Add to cart
-									</a>
-								</div>
-							</div>
-						))}
-					</div>
+							))}
+						</div>
+					) : (
+						<div className="mt-8 rounded-lg border border-slate-200 bg-slate-50 p-6">
+							<p className="font-bold text-slate-950">No backend products are available yet.</p>
+							<p className="mt-2 text-sm leading-6 text-slate-600">Products added in the Django admin will appear here automatically.</p>
+						</div>
+					)}
 				</div>
 			</div>
 
